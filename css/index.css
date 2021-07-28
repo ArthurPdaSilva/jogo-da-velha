@@ -63,3 +63,31 @@ button.item:nth-child(1), button.item:nth-child(2){
   border-right: 2px solid black;
 }
 
+
+/* Modal */
+div#modal{
+  display: none;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, .6);
+}
+
+div#modal div#modal-container{
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 10px;
+  gap: 1em;
+}

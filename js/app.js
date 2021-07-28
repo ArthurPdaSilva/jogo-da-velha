@@ -1,12 +1,21 @@
+// DOM Elements
+const buttons = document.getElementsByClassName('item');
+const modalContainer = document.querySelector('div#modal');
+const modalItem = document.querySelector('div#modal-container');
+
+// Create Element
+const button = document.createElement('button');
+button.setAttribute('onclick', 'recomecar()');
+button.textContent = 'Recomeçar';
+
+// Variables
 let win = '';
 let countPlayer = 0
-const buttons = document.getElementsByClassName('item');
 
 
 // Add X or O
 function toggleValue(e){
-    
-    
+
     if(countPlayer % 2 === 0 && e.innerHTML === '' && win === ''){
         e.innerHTML = 'X';
     }else if(countPlayer % 2 !== 0 && e.innerHTML === '' && win === ''){
@@ -90,11 +99,18 @@ function playerWin(){
 
 // Verificar vitória
 function callCheckerVictory(){
-    alert(`O vencedor é: ${win}`);
+    modalContainer.style.display = 'flex';
+    modalItem.innerHTML = `<p>O vencedor é: ${win}</p>`;
+    modalItem.appendChild(button)
+}
+
+// Recomeçar
+function recomecar(){
+    modalContainer.style.display = 'none';
+    modalItem.
+    countPlayer = 0;
     win = '';
-    setTimeout(() => {
-        for(let count = 0; count < buttons.length; count++){
-            buttons[count].innerHTML = ''
-        }   
-    }, 500);
+    for(let count = 0; count < buttons.length; count++){
+        buttons[count].innerHTML = '';
+    }   
 }
