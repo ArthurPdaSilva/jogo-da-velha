@@ -31,13 +31,15 @@ div.container{
 /* Game Title */
 h1#titleGame{
   font-size: 3em;
+  margin-bottom: 50px;
 }
 
 /* Game container */
 div.tableGame{
-  margin-top: 40px;
-  display: grid;
-  height: 400px;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  width: 50vw;
 }
 
 /* Game Rows */
@@ -53,16 +55,14 @@ div.row:nth-child(1), div.row:nth-child(2){
 button.item{
   background-color: transparent;
   border: none;
-  width: 200px;
-  height: 150px;
-  padding: 20px;
+  width: 100%;
+  height: 116px;
   font-size: 4em;
 }
 
 button.item:nth-child(1), button.item:nth-child(2){
   border-right: 2px solid black;
 }
-
 
 /* Modal */
 div#modal{
@@ -90,4 +90,10 @@ div#modal div#modal-container{
   font-weight: bold;
   border-radius: 10px;
   gap: 1em;
+}
+
+@media(max-width: 600px){
+  div.tableGame{
+    width: 80vw;
+  }
 }
