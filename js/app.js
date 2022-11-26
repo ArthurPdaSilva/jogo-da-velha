@@ -1,116 +1,49 @@
-// DOM Elements
 const buttons = document.getElementsByClassName('item');
 const modalContainer = document.querySelector('div#modal');
 const modalItem = document.querySelector('div#modal-container');
-
-// Create Element
 const button = document.createElement('button');
-button.setAttribute('onclick', 'recomecar()');
+button.setAttribute('onclick', 'location.reload()');
 button.textContent = 'Recomeçar';
 
-// Variables
-let win = '';
-let countPlayer = 0
+let countPlayer = 0;
 
-
-// Add X or O
 function toggleValue(e){
-
-    if(countPlayer % 2 === 0 && e.innerHTML === '' && win === ''){
-        e.innerHTML = 'X';
-    }else if(countPlayer % 2 !== 0 && e.innerHTML === '' && win === ''){
-        e.innerHTML = 'O';
-    }else{
-        return;
+    if (e.innerHTML === '') {
+        e.innerHTML = countPlayer % 2 === 0 ? 'X' : 'O';
+        if (countPlayer >= 4) whoPlayerWin();
+        countPlayer++;
     }
-    
-    countPlayer++;
-    playerWin();
-    
 }
 
 
-// Testar sequências
-function playerWin(){
-
-    if(countPlayer >= 4){
-
-        if(buttons[0].innerHTML === 'X' && buttons[1].innerHTML === 'X' && buttons[2].innerHTML === 'X'){
-            // Player One Win
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML === 'X' && buttons[3].innerHTML === 'X' && buttons[6].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML === 'X' && buttons[4].innerHTML === 'X' && buttons[8].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[3].innerHTML === 'X' && buttons[4].innerHTML === 'X' && buttons[5].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[1].innerHTML === 'X' && buttons[4].innerHTML === 'X' && buttons[7].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[2].innerHTML === 'X' && buttons[5].innerHTML === 'X' && buttons[8].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[2].innerHTML === 'X' && buttons[4].innerHTML === 'X' && buttons[6].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[6].innerHTML === 'X' && buttons[7].innerHTML === 'X' && buttons[8].innerHTML === 'X'){
-            win = 'Player One';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML === 'O' && buttons[1].innerHTML === 'O' && buttons[2].innerHTML === 'O'){
-            // Player Two Win
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML === 'O' && buttons[3].innerHTML === 'O' && buttons[6].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML === 'O' && buttons[4].innerHTML === 'O' && buttons[8].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[3].innerHTML === 'O' && buttons[4].innerHTML === 'O' && buttons[5].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[1].innerHTML === 'O' && buttons[4].innerHTML === 'O' && buttons[7].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[2].innerHTML === 'O' && buttons[5].innerHTML === 'O' && buttons[8].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[2].innerHTML === 'O' && buttons[4].innerHTML === 'O' && buttons[6].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[6].innerHTML === 'O' && buttons[7].innerHTML === 'O' && buttons[8].innerHTML === 'O'){
-            win = 'Player Two';
-            callCheckerVictory();
-        }else if(buttons[0].innerHTML !== '' && buttons[1].innerHTML !== '' && buttons[2].innerHTML !== '' && buttons[3].innerHTML !== '' && buttons[4].innerHTML !== '' && buttons[5].innerHTML !== '' && buttons[6].innerHTML !== '' && buttons[7].innerHTML !== '' && buttons[8].innerHTML !== ''){
-            win = 'Draw';
-            callCheckerVictory();
-        }else{
-            return;
-        }
-    }else{
-        return;
+function whoPlayerWin(){
+    if (countPlayer === 8) callCheckerVictory();
+    else {
+        const text = verify();
+        if(text.length !== 0) callCheckerVictory(text);
     }
-
 }
 
-// Verificar vitória
-function callCheckerVictory(){
+function verify() {
+    if (buttons[0].innerHTML === buttons[1].innerHTML && buttons[1].innerHTML == buttons[2].innerHTML) 
+        return buttons[0].innerHTML;
+    else if(buttons[3].innerHTML === buttons[4].innerHTML && buttons[4].innerHTML == buttons[5].innerHTML) 
+        return buttons[3].innerHTML;
+    else if(buttons[6].innerHTML === buttons[7].innerHTML && buttons[7].innerHTML == buttons[8].innerHTML) 
+        return buttons[6].innerHTML;
+    else if(buttons[0].innerHTML === buttons[4].innerHTML && buttons[4].innerHTML == buttons[8].innerHTML) 
+        return buttons[0].innerHTML;
+    else if(buttons[0].innerHTML === buttons[3].innerHTML && buttons[3].innerHTML == buttons[6].innerHTML) 
+        return buttons[0].innerHTML;
+    else if(buttons[1].innerHTML === buttons[4].innerHTML && buttons[4].innerHTML == buttons[7].innerHTML) 
+        return buttons[1].innerHTML;
+    else if(buttons[2].innerHTML === buttons[5].innerHTML && buttons[5].innerHTML == buttons[8].innerHTML) 
+        return buttons[2].innerHTML;
+    else return '';
+}
+
+function callCheckerVictory(win = 'Empate'){
     modalContainer.style.display = 'flex';
-    modalItem.innerHTML = `<p>O vencedor é: ${win}</p>`;
-    modalItem.appendChild(button)
-}
-
-// Recomeçar
-function recomecar(){
-    modalContainer.style.display = 'none';
-    modalItem.
-    countPlayer = 0;
-    win = '';
-    for(let count = 0; count < buttons.length; count++){
-        buttons[count].innerHTML = '';
-    }   
+    modalItem.innerHTML = win === 'Empate' ? '<p>Empate</p>' : `<p>O vencedor é: ${win == 'X' ? 'Jogador 1' : 'Jogador 2'}</p>`;
+    modalItem.appendChild(button);
 }
